@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Krishi – Smart Farming Assistant</title>
+    <meta name="description" content="AI-powered farming assistant for Indian farmers. Voice-based crop disease detection, weather updates, market prices and fertilizer guidance.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- ==================== LOADER ==================== -->
+<div id="pageLoader" class="page-loader">
+    <div class="loader-content">
+        <div class="loader-icon">🌾</div>
+        <div class="loader-text">AI Krishi</div>
+        <div class="loader-bar"><div class="loader-fill"></div></div>
+        <p>Smart Farming, Better Future</p>
+    </div>
+</div>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <span class="brand-icon">🌾</span>
+            <span class="brand-name">AI <span class="green">Krishi</span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="nav-link active" data-page="home">🏠 Home</a>
+            <a href="#assistant" class="nav-link" data-page="assistant">🤖 AI Assistant</a>
+            <a href="#disease" class="nav-link" data-page="disease">🔬 Disease</a>
+            <a href="#weather" class="nav-link" data-page="weather">🌤️ Weather</a>
+            <a href="#market" class="nav-link" data-page="market">📈 Market</a>
+            <a href="#schemes" class="nav-link" data-page="schemes">📋 Schemes</a>
+        </div>
+        <div class="nav-actions">
+            <!-- Language selector -->
+            <select id="globalLang" class="lang-selector" title="Select Language">
+                <option value="en">🇮🇳 English</option>
+                <option value="hi">हिंदी</option>
+                <option value="ta">தமிழ்</option>
+                <option value="te">తెలుగు</option>
+            </select>
+            <button id="authBtn" class="btn btn-outline-sm" onclick="showModal('authModal')">
+                <i class="fas fa-user"></i> Login
+            </button>
+            <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<section id="home" class="page active">
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-bg">
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <div class="crop-illustrations">
+                <span class="crop-emoji" style="--i:0">🌾</span>
+                <span class="crop-emoji" style="--i:1">🌽</span>
+                <span class="crop-emoji" style="--i:2">🍅</span>
+                <span class="crop-emoji" style="--i:3">🌿</span>
+                <span class="crop-emoji" style="--i:4">🌻</span>
+                <span class="crop-emoji" style="--i:5">🥬</span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🤖 Powered by Gemini AI</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="text-green">AI Krishi</span>
+            </h1>
+            <p class="hero-tagline">Smart Farming, Better Future.</p>
+            <p class="hero-desc">
+                Your intelligent farming companion that speaks your language. 
+                Get instant answers about crop diseases, weather alerts, market prices and expert advice — all through voice or chat.
+            </p>
+            <div class="hero-cta">
+                <button class="btn btn-hero" onclick="navigateTo('assistant')">
+                    <i class="fas fa-microphone"></i>
+                    Talk to AI Assistant
+                </button>
+                <button class="btn btn-hero-outline" onclick="navigateTo('disease')">
+                    <i class="fas fa-camera"></i>
+                    Detect Crop Disease
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-num">5+</span>
+                    <span class="stat-label">Crop Types</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">4</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">24/7</span>
+                    <span class="stat-label">AI Support</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="mock-chat">
+                        <div class="mock-msg ai-msg">
+                            <span>🌾</span>
+                            <p>Namaste! I'm AI Krishi. How can I help your farm today?</p>
+                        </div>
+                        <div class="mock-msg user-msg">
+                            <p>My tomato leaves are turning yellow</p>
+                        </div>
+                        <div class="mock-msg ai-msg">
+                            <span>🌾</span>
+                            <p>This may be nitrogen deficiency or early blight. Let me help you diagnose it...</p>
+                        </div>
+                    </div>
+                    <div class="mock-input">
+                        <span>🎙️ Ask anything...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Selection Banner -->
+    <div class="lang-banner">
+        <div class="container">
+            <p>🌐 Choose your preferred language:</p>
+            <div class="lang-pills">
+                <button class="lang-pill active" onclick="setLanguage('en')">English</button>
+                <button class="lang-pill" onclick="setLanguage('hi')">हिंदी</button>
+                <button class="lang-pill" onclick="setLanguage('ta')">தமிழ்</button>
+                <button class="lang-pill" onclick="setLanguage('te')">తెలుగు</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access Cards -->
+    <div class="container section">
+        <h2 class="section-title">What Can I Help You With?</h2>
+        <p class="section-subtitle">Tap any card to get started</p>
+        <div class="features-grid">
+            <div class="feature-card" onclick="navigateTo('disease')">
+                <div class="feature-icon bg-red">🔬</div>
+                <h3>Crop Disease Detection</h3>
+                <p>Upload a photo of your crop and get instant AI diagnosis</p>
+                <span class="feature-arrow">→</span>
+            </div>
+            <div class="feature-card" onclick="navigateTo('weather')">
+                <div class="feature-icon bg-blue">🌤️</div>
+                <h3>Weather Updates</h3>
+                <p>Real-time weather alerts and farming advisories for your area</p>
+                <span class="feature-arrow">→</span>
+            </div>
+            <div class="feature-card" onclick="navigateTo('assistant')">
+                <div class="feature-icon bg-green">🌱</div>
+                <h3>Fertilizer Guidance</h3>
+                <p>Ask AI for crop-specific nutrient and fertilizer recommendations</p>
+                <span class="feature-arrow">→</span>
+            </div>
+            <div class="feature-card" onclick="navigateTo('assistant')">
+                <div class="feature-icon bg-teal">💧</div>
+                <h3>Irrigation Advice</h3>
+                <p>Smart irrigation schedules based on crop type and weather</p>
+                <span class="feature-arrow">→</span>
+            </div>
+            <div class="feature-card" onclick="navigateTo('market')">
+                <div class="feature-icon bg-orange">📈</div>
+                <h3>Market Prices</h3>
+                <p>Compare crop prices across different mandis and markets</p>
+                <span class="feature-arrow">→</span>
+            </div>
+            <div class="feature-card" onclick="navigateTo('schemes')">
+                <div class="feature-icon bg-purple">📋</div>
+                <h3>Govt. Schemes</h3>
+                <p>Find PM-KISAN, PMFBY and other government schemes for farmers</p>
+                <span class="feature-arrow">→</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Helpline Banner -->
+    <div class="helpline-banner">
+        <div class="container">
+            <div class="helpline-content">
+                <span class="helpline-icon">📞</span>
+                <div>
+                    <strong>Kisan Call Centre</strong>
+                    <p>Free 24/7 agricultural helpline</p>
+                </div>
+                <a href="tel:18001801551" class="helpline-number">1800-180-1551</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="container section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div id="faqContainer" class="faq-container">
+            <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading FAQs...</div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== AI ASSISTANT PAGE ==================== -->
+<section id="assistant" class="page">
+    <div class="container">
+        <div class="page-header">
+            <h1>🤖 AI Farming Assistant</h1>
+            <p>Ask anything about farming in your language. Use voice or type your question.</p>
+        </div>
+
+        <div class="assistant-layout">
+            <!-- Chat Panel -->
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <div class="chat-avatar">🌾</div>
+                    <div class="chat-info">
+                        <strong>AI Krishi</strong>
+                        <span class="online-dot">● Online</span>
+                    </div>
+                    <div class="chat-lang">
+                        <select id="chatLang" class="mini-select" onchange="updateChatLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="te">తెలుగు</option>
+                        </select>
+                    </div>
+                    <button class="btn-icon" onclick="clearChat()" title="Clear Chat">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-welcome">
+                        <div class="welcome-icon">🌾</div>
+                        <h3>Namaste! I'm AI Krishi</h3>
+                        <p>Ask me anything about farming, crop diseases, fertilizers, or market prices. I speak English, Hindi, Tamil and Telugu!</p>
+                        <div class="quick-questions">
+                            <button class="quick-q" onclick="sendQuickQuestion('My tomato leaves are turning yellow. What should I do?')">🍅 Yellow Tomato Leaves</button>
+                            <button class="quick-q" onclick="sendQuickQuestion('What fertilizer should I use for rice crop?')">🌾 Rice Fertilizer</button>
+                            <button class="quick-q" onclick="sendQuickQuestion('How to control pests in wheat organically?')">🌿 Organic Pest Control</button>
+                            <button class="quick-q" onclick="sendQuickQuestion('What is PM-KISAN scheme and how to apply?')">💰 PM-KISAN Scheme</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <!-- Voice Recording Status -->
+                    <div class="voice-status" id="voiceStatus" style="display:none;">
+                        <div class="voice-waves">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <span id="voiceStatusText">Listening...</span>
+                        <button class="btn-stop-voice" onclick="stopVoiceInput()">Stop</button>
+                    </div>
+
+                    <div class="input-row">
+                        <textarea
+                            id="chatInput"
+                            class="chat-textarea"
+                            placeholder="Type your farming question here... (or use microphone)"
+                            rows="2"
+                            onkeydown="handleEnterKey(event)"
+                        ></textarea>
+                        <div class="input-actions">
+                            <button class="btn-mic" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button class="btn-send" onclick="sendMessage()" title="Send">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Voice supported in: English, Hindi, Tamil, Telugu
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guidance Panel -->
+            <div class="guidance-panel">
+                <div class="guidance-card">
+                    <h4>🌱 Fertilizer & Irrigation Guide</h4>
+                    <div class="guidance-form">
+                        <div class="form-group">
+                            <label>Select Crop</label>
+                            <select id="guidanceCrop" class="form-select">
+                                <option value="">Choose crop...</option>
+                                <option value="Rice">Rice (Paddy)</option>
+                                <option value="Wheat">Wheat</option>
+                                <option value="Tomato">Tomato</option>
+                                <option value="Cotton">Cotton</option>
+                                <option value="Maize">Maize</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Area (in Hectares)</label>
+                            <input type="number" id="guidanceArea" class="form-input" value="1" min="0.1" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Soil Type</label>
+                            <select id="guidanceSoil" class="form-select">
+                                <option value="Medium">Medium (Loamy)</option>
+                                <option value="Light">Light (Sandy)</option>
+                                <option value="Heavy">Heavy (Clay)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary full-width" onclick="getGuidance()">
+                            <i class="fas fa-leaf"></i> Get Guidance
+                        </button>
+                    </div>
+                    <div id="guidanceResult" class="guidance-result" style="display:none;"></div>
+                </div>
+
+                <div class="guidance-card mt-1">
+                    <h4>📞 Emergency Contacts</h4>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span>🌾 Kisan Call Centre</span>
+                            <a href="tel:18001801551"><strong>1800-180-1551</strong></a>
+                        </div>
+                        <div class="contact-item">
+                            <span>💰 PM Kisan Helpline</span>
+                            <a href="tel:155261"><strong>155261</strong></a>
+                        </div>
+                        <div class="contact-item">
+                            <span>🛡️ PMFBY Helpline</span>
+                            <a href="tel:18002007710"><strong>1800-200-7710</strong></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== DISEASE DETECTION PAGE ==================== -->
+<section id="disease" class="page">
+    <div class="container">
+        <div class="page-header">
+            <h1>🔬 Crop Disease Detection</h1>
+            <p>Upload or capture a photo of your crop. AI will analyze it and suggest possible issues.</p>
+        </div>
+
+        <div class="disease-layout">
+            <div class="upload-panel">
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="handleDragOver(event)" ondrop="handleFileDrop(event)">
+                    <div class="upload-icon">📸</div>
+                    <h3>Upload Crop Photo</h3>
+                    <p>Click to select or drag & drop image here</p>
+                    <p class="upload-hint">Supported: JPG, PNG, WEBP (max 10MB)</p>
+                    <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)" style="display:none">
+                </div>
+
+                <div class="camera-option">
+                    <span>— OR —</span>
+                    <button class="btn btn-secondary" onclick="openCamera()">
+                        <i class="fas fa-camera"></i> Take Photo with Camera
+                    </button>
+                </div>
+
+                <div id="imagePreview" class="image-preview" style="display:none;">
+                    <img id="previewImg" src="" alt="Selected crop image">
+                    <button class="btn btn-primary full-width mt-1" onclick="analyzeDisease()">
+                        <i class="fas fa-search"></i> Analyze for Diseases
+                    </button>
+                    <button class="btn btn-outline full-width" onclick="clearImage()">
+                        <i class="fas fa-times"></i> Change Image
+                    </button>
+                </div>
+
+                <!-- Camera Modal -->
+                <div id="cameraModal" class="camera-modal" style="display:none;">
+                    <div class="camera-container">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-controls">
+                            <button class="btn btn-primary" onclick="capturePhoto()">📸 Capture</button>
+                            <button class="btn btn-outline" onclick="closeCamera()">Cancel</button>
+                        </div>
+                    </div>
+                    <canvas id="cameraCanvas" style="display:none;"></canvas>
+                </div>
+            </div>
+
+            <div class="analysis-panel">
+                <div id="analysisResult" class="analysis-result">
+                    <div class="analysis-placeholder">
+                        <span>🌱</span>
+                        <p>Upload a crop image to get AI-powered disease analysis</p>
+                        <div class="tips-box">
+                            <h4>📌 Tips for Best Results:</h4>
+                            <ul>
+                                <li>Take a close-up photo of the affected leaves or plant parts</li>
+                                <li>Ensure good lighting – natural daylight is best</li>
+                                <li>Include both healthy and affected plant parts</li>
+                                <li>Take photos from multiple angles if possible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disclaimer-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>AI analysis is for guidance only. For confirmed diagnosis, please consult a qualified agricultural expert or Krishi Vigyan Kendra.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== WEATHER PAGE ==================== -->
+<section id="weather" class="page">
+    <div class="container">
+        <div class="page-header">
+            <h1>🌤️ Weather & Farming Alerts</h1>
+            <p>Get real-time weather information and farming advisories for your location.</p>
+        </div>
+
+        <div class="weather-search">
+            <div class="search-row">
+                <input type="text" id="weatherLocation" class="form-input" placeholder="Enter your village or district name (e.g., Nashik, Ludhiana)">
+                <button class="btn btn-primary" onclick="fetchWeather()">
+                    <i class="fas fa-search"></i> Get Weather
+                </button>
+                <button class="btn btn-outline" onclick="getLocationWeather()">
+                    <i class="fas fa-location-arrow"></i> Use My Location
+                </button>
+            </div>
+        </div>
+
+        <div id="weatherDisplay" class="weather-display" style="display:none;">
+            <div class="weather-main-card">
+                <div class="weather-location-info">
+                    <h2 id="wLocation">--</h2>
+                    <p id="wTimestamp">--</p>
+                </div>
+                <div class="weather-current">
+                    <div class="weather-icon-big" id="wIcon">🌤️</div>
+                    <div class="weather-temp-block">
+                        <div class="temp-big" id="wTemp">--°C</div>
+                        <div class="temp-feels" id="wFeels">Feels like --°C</div>
+                        <div class="weather-desc" id="wDesc">--</div>
+                    </div>
+                </div>
+                <div class="weather-details-grid">
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <span id="wHumidity">--%</span>
+                        <label>Humidity</label>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <span id="wWind">-- km/h</span>
+                        <label>Wind</label>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-cloud-rain"></i>
+                        <span id="wRain">-- mm</span>
+                        <label>Rainfall</label>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-eye"></i>
+                        <span id="wVis">-- km</span>
+                        <label>Visibility</label>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-sun"></i>
+                        <span id="wSunrise">--</span>
+                        <label>Sunrise</label>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-moon"></i>
+                        <span id="wSunset">--</span>
+                        <label>Sunset</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="farming-alerts" id="farmingAlerts">
+                <h3>🚨 Farming Alerts</h3>
+                <div id="alertsContainer"></div>
+            </div>
+
+            <div class="forecast-section" id="forecastSection" style="display:none;">
+                <h3>📅 5-Day Forecast</h3>
+                <div class="forecast-grid" id="forecastGrid"></div>
+            </div>
+        </div>
+
+        <div id="weatherPlaceholder" class="weather-placeholder">
+            <span>🌦️</span>
+            <p>Enter your location above to get weather information and farming advisories</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== MARKET PRICES PAGE ==================== -->
+<section id="market" class="page">
+    <div class="container">
+        <div class="page-header">
+            <h1>📈 Market Prices</h1>
+            <p>Compare agricultural commodity prices across different markets and mandis.</p>
+        </div>
+
+        <div class="market-search">
+            <div class="search-row">
+                <select id="marketCrop" class="form-select">
+                    <option value="">Select Crop...</option>
+                </select>
+                <select id="marketState" class="form-select">
+                    <option value="">All States</option>
+                </select>
+                <button class="btn btn-primary" onclick="fetchMarketPrices()">
+                    <i class="fas fa-search"></i> Get Prices
+                </button>
+            </div>
+        </div>
+
+        <div id="marketDisplay" style="display:none;">
+            <div class="market-summary" id="marketSummary"></div>
+            <div class="market-table-wrapper">
+                <table class="market-table" id="marketTable">
+                    <thead>
+                        <tr>
+                            <th>Market / Mandi</th>
+                            <th>State</th>
+                            <th>Min Price</th>
+                            <th>Max Price</th>
+                            <th>Modal Price</th>
+                            <th>vs MSP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="marketTableBody"></tbody>
+                </table>
+            </div>
+            <div class="data-disclaimer">
+                <i class="fas fa-info-circle"></i>
+                <span>Sample prices for demonstration. For real-time prices visit 
+                    <a href="https://agmarknet.gov.in" target="_blank">agmarknet.gov.in</a> or 
+                    <a href="https://www.enam.gov.in" target="_blank">enam.gov.in</a>
+                </span>
+            </div>
+        </div>
+
+        <div id="marketPlaceholder" class="market-placeholder">
+            <span>🏪</span>
+            <p>Select a crop to see market prices across different mandis</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SCHEMES PAGE ==================== -->
+<section id="schemes" class="page">
+    <div class="container">
+        <div class="page-header">
+            <h1>📋 Government Schemes for Farmers</h1>
+            <p>Find subsidies, insurance and financial support schemes from the Indian government.</p>
+        </div>
+
+        <div class="schemes-filter">
+            <button class="filter-btn active" onclick="filterSchemes('all', this)">All</button>
+            <button class="filter-btn" onclick="filterSchemes('financial', this)">💰 Financial</button>
+            <button class="filter-btn" onclick="filterSchemes('insurance', this)">🛡️ Insurance</button>
+            <button class="filter-btn" onclick="filterSchemes('credit', this)">💳 Credit</button>
+            <button class="filter-btn" onclick="filterSchemes('irrigation', this)">💧 Irrigation</button>
+            <button class="filter-btn" onclick="filterSchemes('market', this)">🏪 Market</button>
+        </div>
+
+        <div class="schemes-grid" id="schemesGrid">
+            <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading schemes...</div>
+        </div>
+
+        <div class="helplines-section">
+            <h3>📞 Important Helplines</h3>
+            <div class="helplines-grid" id="helplinesGrid"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== AUTH MODAL ==================== -->
+<div id="authModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'authModal')">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="authTitle">🌾 Farmer Login</h3>
+            <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchTab('register')">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" id="loginPhone" class="form-input" placeholder="10-digit mobile number" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Login</button>
+                <p class="auth-switch">Don't have account? <a onclick="switchTab('register')">Register here</a></p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display:none;" onsubmit="handleRegister(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="regName" class="form-input" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile Number *</label>
+                        <input type="tel" id="regPhone" class="form-input" placeholder="10-digit number" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Village</label>
+                        <input type="text" id="regVillage" class="form-input" placeholder="Village name">
+                    </div>
+                    <div class="form-group">
+                        <label>District</label>
+                        <input type="text" id="regDistrict" class="form-input" placeholder="District name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Primary Crop</label>
+                        <select id="regCrop" class="form-select">
+                            <option value="">Select main crop</option>
+                            <option value="Rice">Rice</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Cotton">Cotton</option>
+                            <option value="Tomato">Tomato</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Land (Acres)</label>
+                        <input type="number" id="regLand" class="form-input" placeholder="e.g., 2.5" step="0.5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" id="regPassword" class="form-input" placeholder="Create password" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Create Account</button>
+                <p class="auth-switch">Already registered? <a onclick="switchTab('login')">Login here</a></p>
+            </form>
+
+            <div id="authMessage" class="auth-message" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== TOAST NOTIFICATION ==================== -->
+<div id="toast" class="toast" style="display:none;"></div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <h3>🌾 AI Krishi</h3>
+            <p>Smart Farming, Better Future. Empowering Indian farmers with AI technology and voice-based assistance.</p>
+            <div class="footer-socials">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <a onclick="navigateTo('home')">Home</a>
+            <a onclick="navigateTo('assistant')">AI Assistant</a>
+            <a onclick="navigateTo('disease')">Disease Detection</a>
+            <a onclick="navigateTo('weather')">Weather</a>
+            <a onclick="navigateTo('market')">Market Prices</a>
+            <a onclick="navigateTo('schemes')">Govt Schemes</a>
+        </div>
+        <div class="footer-links">
+            <h4>Resources</h4>
+            <a href="https://agmarknet.gov.in" target="_blank">Agmarknet</a>
+            <a href="https://www.enam.gov.in" target="_blank">eNAM Platform</a>
+            <a href="https://pmkisan.gov.in" target="_blank">PM-KISAN</a>
+            <a href="https://pmfby.gov.in" target="_blank">PM Fasal Bima</a>
+            <a href="https://soilhealth.dac.gov.in" target="_blank">Soil Health Card</a>
+            <a href="https://www.icar.org.in" target="_blank">ICAR</a>
+        </div>
+        <div class="footer-links">
+            <h4>Help & Support</h4>
+            <a href="#" onclick="showModal('aboutModal')">About Us</a>
+            <a href="#" onclick="showModal('privacyModal')">Privacy Policy</a>
+            <a href="tel:18001801551">Contact Kisan Helpline</a>
+            <a href="#" onclick="navigateTo('home')">Help & FAQ</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2024 AI Krishi. Built for Indian Farmers. 🇮🇳 | Academic Innovation Project</p>
+        <p>⚠️ Always consult professional agricultural experts for critical decisions.</p>
+    </div>
+</footer>
+
+<script src="static/js/app.js"></script>
+<script src="static/js/voice.js"></script>
+<script src="static/js/disease.js"></script>
+<script src="static/js/weather.js"></script>
+<script src="static/js/market.js"></script>
+</body>
+</html>
